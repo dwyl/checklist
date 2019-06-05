@@ -19,7 +19,7 @@
 <%= for todo <- @todos do %>
     <tr>
       <td><%= todo.title %></td>
-      <td><%= todo.status %></td>
+      <td><%= atom_to_human_str(todo.status) %></td>
       <td><%= todo.priority %></td>
       <td><%= todo.time_estimate %></td>
       <td><%= todo.deadline %></td>
