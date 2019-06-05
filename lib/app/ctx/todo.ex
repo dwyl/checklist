@@ -18,7 +18,17 @@ defmodule App.Ctx.Todo do
   @doc false
   def changeset(todo, attrs) do
     todo
-    |> cast(attrs, [:title, :status, :priority, :time_estimate, :deadline, :schedule, :assignee, :owner])
+    |> cast(attrs, [:title, :status, :priority, :time_estimate, :deadline,
+      :schedule, :assignee, :owner])
     |> validate_required([])
+    |> status_assigned(todo)
+  end
+
+  def status_assigned(changeset, todo) do
+    if(todo.assignee && todo.status == :unassigned) do
+      put_change(changeset, :status, :assigned)
+    else
+      changeset
+    end
   end
 end
