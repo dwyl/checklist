@@ -10,7 +10,7 @@
   <%= error_tag f, :title %>
 
   <%= label f, :status %>
-  <%= text_input f, :status %>
+  <%= select f, :status, statuslist() %>
   <%= error_tag f, :status %>
 
   <%= label f, :priority %>
