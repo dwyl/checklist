@@ -1,0 +1,40 @@
+<h1>Listing Todos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Time estimate</th>
+      <th>Deadline</th>
+      <th>Schedule</th>
+      <th>Assignee</th>
+      <th>Owner</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for todo <- @todos do %>
+    <tr>
+      <td><%= todo.title %></td>
+      <td><%= todo.status %></td>
+      <td><%= todo.priority %></td>
+      <td><%= todo.time_estimate %></td>
+      <td><%= todo.deadline %></td>
+      <td><%= todo.schedule %></td>
+      <td><%= todo.assignee %></td>
+      <td><%= todo.owner %></td>
+
+      <td>
+        <%= link "Show", to: Routes.todo_path(@conn, :show, todo) %>
+        <%= link "Edit", to: Routes.todo_path(@conn, :edit, todo) %>
+        <%= link "Delete", to: Routes.todo_path(@conn, :delete, todo), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Todo", to: Routes.todo_path(@conn, :new) %></span>
