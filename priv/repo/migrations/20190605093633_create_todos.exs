@@ -4,7 +4,7 @@ defmodule App.Repo.Migrations.CreateTodos do
   def change do
     create table(:todos) do
       add :title, :string
-      add :status, :string
+      add :status, StatusEnum.type()
       add :priority, :integer
       add :time_estimate, :integer
       add :deadline, :naive_datetime

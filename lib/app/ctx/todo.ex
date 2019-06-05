@@ -8,7 +8,7 @@ defmodule App.Ctx.Todo do
     field :owner, :string
     field :priority, :integer
     field :schedule, :naive_datetime
-    field :status, :string
+    field :status, StatusEnum # <--- lib/ecto_enums.ex
     field :time_estimate, :integer
     field :title, :string
 
@@ -19,6 +19,6 @@ defmodule App.Ctx.Todo do
   def changeset(todo, attrs) do
     todo
     |> cast(attrs, [:title, :status, :priority, :time_estimate, :deadline, :schedule, :assignee, :owner])
-    |> validate_required([:title, :status, :priority, :time_estimate, :deadline, :schedule, :assignee, :owner])
+    |> validate_required([])
   end
 end
