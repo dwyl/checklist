@@ -21,6 +21,11 @@ defmodule App.Ctx do
     Repo.all(Todo)
   end
 
+  def list_todos_by_priority do
+    query = from t in Todo, select: t, order_by: [asc: t.priority, desc: t.updated_at]
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single todo.
 

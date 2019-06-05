@@ -5,7 +5,7 @@ defmodule AppWeb.TodoController do
   alias App.Ctx.Todo
 
   def index(conn, _params) do
-    todos = Ctx.list_todos()
+    todos = Ctx.list_todos_by_priority()
     render(conn, "index.html", todos: todos)
   end
 
