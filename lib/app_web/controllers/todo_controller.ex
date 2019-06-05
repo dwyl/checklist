@@ -1,12 +1,13 @@
 defmodule AppWeb.TodoController do
   use AppWeb, :controller
-
+  alias Phoenix.LiveView
   alias App.Ctx
   alias App.Ctx.Todo
 
   def index(conn, _params) do
     todos = Ctx.list_todos_by_priority()
-    render(conn, "index.html", todos: todos)
+    # render(conn, "index.html", todos: todos)
+    LiveView.Controller.live_render(conn, AppWeb.TodoLiveView, session: %{})
   end
 
   def new(conn, _params) do
