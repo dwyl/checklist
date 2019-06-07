@@ -11,22 +11,22 @@
   </thead>
   <tbody>
 <%= for todo <- @todos do %>
-    <tr>
-      <td><%= todo.title %></td>
-      <td>
-        <%= form_for :foo, "#", [phx_change: "update_status"], fn f -> %>
-          <!-- select status -->
-          <%= select f, :status, statuslistselect(todo),
-            selected: id_status(todo, todo.status), class: todo.status %>
-        <% end %>
-      </td>
-      <td><%= todo.priority %></td>
+  <tr>
+    <td><%= todo.title %></td>
+    
+    <td>
+      <%= form_for :"status_#{todo.id}", "#", [phx_change: "update_status"], fn f -> %>
+        <%= select f, :status, statuslist(), selected: todo.status, class: todo.status %>
+      <% end %>
+    </td>
 
-      <td>
-        <a href="/todos/<%= todo.id %>/edit">edit</a>
-      </td>
+    <td><%= todo.priority %></td>
 
-    </tr>
+    <td>
+      <a href="/todos/<%= todo.id %>/edit">edit</a>
+    </td>
+
+  </tr>
 <% end %>
   </tbody>
 </table>

@@ -13,27 +13,10 @@ defmodule AppWeb.TodoLive do
     {:ok, assign(socket, todos: todos)}
   end
 
-  def handle_event("change_status", value, socket) do
-    IO.inspect(value, label: "value")
-    status = App.StatusList.statuslist() |> Enum.random()
-    App.Ctx.get_todo!(value) |> App.Ctx.update_todo(%{status: status})
-
-    todos = App.Ctx.list_todos_by_priority()
-    AppWeb.Endpoint.broadcast_from(self(), @topic, "update", %{todos: todos})
-    {:noreply, assign(socket, todos: todos)}
-  end
-
   def handle_event("update_status", value, socket) do
-    IO.inspect(value, label: "value")
-    IO.inspect(value["foo"]["status"], label: "value.foo")
-    # value should be todo.id_status e.g: 5_complete
-    # so we can split on "_" to get the id and status ...
-    # @robstallion this is the part that is not yet working ... https://git.io/fjzEm
-
-    parts = String.split(value["foo"]["status"], "-")
-    id = Enum.at(parts,0)
-    status = Enum.at(parts,1)
-    IO.inspect(status, label: "status")
+    [key] = value |> Map.keys() |> Enum.filter(&String.contains?(&1, "status_"))
+    [_, id] = String.split(key, "_")
+    status = value[key]["status"]
     App.Ctx.get_todo!(id) |> App.Ctx.update_todo(%{status: status})
 
     todos = App.Ctx.list_todos_by_priority()

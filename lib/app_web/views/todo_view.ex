@@ -22,14 +22,4 @@ defmodule AppWeb.TodoView do
   def id_status(todo, atom) do
     "#{todo.id}-#{atom}"
   end
-
-  # used for setting the value of <option> in select on index page
-  # https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html#select/4
-  def statuslistselect(todo) do
-    Enum.map(App.StatusList.statuslist, fn(atom) ->
-      {atom_to_human_str(atom), id_status(todo, atom)}
-    end)
-  end
-
-
 end
