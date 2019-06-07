@@ -14,9 +14,10 @@ defmodule AppWeb.TodoLive do
     {:ok, assign(socket, todos: todos)}
   end
 
-  def handle_event("change_status", _value, socket) do
+  def handle_event("change_status", value, socket) do
+    IO.inspect(value, label: "value")
     status = App.StatusList.statuslist() |> Enum.random()
-    App.Ctx.get_todo!(5) |> App.Ctx.update_todo(%{status: status})
+    App.Ctx.get_todo!(value) |> App.Ctx.update_todo(%{status: status})
 
     todos = App.Ctx.list_todos_by_priority()
     AppWeb.Endpoint.broadcast_from(self(), @topic, "update", %{todos: todos})

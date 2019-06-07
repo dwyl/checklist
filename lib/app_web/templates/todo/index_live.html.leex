@@ -5,13 +5,6 @@
     <tr>
       <th>Title</th>
       <th>Status</th>
-      <th>Priority</th>
-      <th>Time estimate</th>
-      <th>Deadline</th>
-      <th>Schedule</th>
-      <th>Assignee</th>
-      <th>Owner</th>
-
       <th></th>
     </tr>
   </thead>
@@ -19,10 +12,59 @@
 <%= for todo <- @todos do %>
     <tr>
       <td><%= todo.title %></td>
-      <td><%= atom_to_human_str(todo.status) %></td>
-
+      <td>
+        <div class="<%= todo.status %>">
+        <%= atom_to_human_str(todo.status) %>
+        </div>
+        <button phx-click="change_status" phx-value="<%= todo.id %>">Update Status</button>
+      </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-      <button phx-click="change_status">click me</button>
+
+
+<style>
+.complete {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.unassigned {
+  color: black;
+  background-color: white;
+}
+
+.assigned {
+  color: black;
+  background-color: green;
+}
+
+.in_progress {
+  color: black;
+  background-color: blue;
+}
+
+.awaiting_review {
+  color: black;
+  background-color: yellow;
+}
+
+.in_review {
+  color: black;
+  background-color: pink;
+}
+
+.dependent {
+  color: black;
+  background-color: orange;
+}
+
+.blocked {
+  color: black;
+  background-color: red;
+}
+
+
+</style>
