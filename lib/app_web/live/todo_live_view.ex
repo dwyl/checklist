@@ -1,12 +1,15 @@
 defmodule AppWeb.TodoLive do
   use Phoenix.LiveView
 
+  @topic "live"
+
   def render(assigns) do
-    IO.inspect(assigns, label: "assigns")
+    # IO.inspect(assigns, label: "assigns")
     AppWeb.TodoView.render("index_live.html", assigns)
   end
 
   def mount(_session, socket) do
+    AppWeb.Endpoint.subscribe(@topic)
     todos = App.Ctx.list_todos_by_priority()
     {:ok, assign(socket, todos: todos)}
   end
@@ -16,29 +19,13 @@ defmodule AppWeb.TodoLive do
     App.Ctx.get_todo!(5) |> App.Ctx.update_todo(%{status: status})
 
     todos = App.Ctx.list_todos_by_priority()
+    AppWeb.Endpoint.broadcast_from(self(), @topic, "update", %{todos: todos})
     {:noreply, assign(socket, todos: todos)}
   end
 
-  # def handle_info(:create_org, socket) do
-  #   # {:ok, org} = App.create_org()
-  #   # send(self(), {:create_repo, org})
-  #   {:noreply, assign(socket, deploy_step: "Creating GitHub org...")}
-  # end
-  #
-  # def handle_info({:create_repo, org}, socket) do
-  #   # {:ok, repo} = App.create_repo(org)
-  #   # send(self(), {:push_contents, repo})
-  #   {:noreply, assign(socket, deploy_step: "Creating GitHub repo...")}
-  # end
-  #
-  # def handle_info({:push_contents, repo}, socket) do
-  #   # :ok = App.push_contents(repo)
-  #   # send(self(), :done)
-  #   {:noreply, assign(socket, deploy_step: "Pushing to repo...")}
-  # end
-
-  def handle_info(:done, socket) do
-    {:noreply, assign(socket, deploy_step: "Done!")}
+  def handle_info(msg, socket) do
+    IO.inspect(msg, label: ">> msg")
+    {:noreply, assign(socket, todos: msg.payload.todos)}
   end
 
 end
