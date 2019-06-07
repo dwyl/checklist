@@ -20,14 +20,9 @@
     <tr>
       <td><%= todo.title %></td>
       <td><%= atom_to_human_str(todo.status) %></td>
-      <td><%= todo.priority %></td>
-      <td><%= todo.time_estimate %></td>
-      <td><%= todo.deadline %></td>
-      <td><%= todo.schedule %></td>
-      <td><%= todo.assignee %></td>
-      <td><%= todo.owner %></td>
 
     </tr>
 <% end %>
   </tbody>
 </table>
+      <button phx-click="change_status">click me</button>

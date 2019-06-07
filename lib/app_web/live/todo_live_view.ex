@@ -11,10 +11,12 @@ defmodule AppWeb.TodoLive do
     {:ok, assign(socket, todos: todos)}
   end
 
-  def handle_event("hello_rob", _value, socket) do
-    # :ok = App.start_deploy()
-    # send(self(), :create_org)
-    {:noreply, assign(socket, deploy_step: "Hello Rob!")}
+  def handle_event("change_status", _value, socket) do
+    status = App.StatusList.statuslist() |> Enum.random()
+    App.Ctx.get_todo!(5) |> App.Ctx.update_todo(%{status: status})
+
+    todos = App.Ctx.list_todos_by_priority()
+    {:noreply, assign(socket, todos: todos)}
   end
 
   # def handle_info(:create_org, socket) do
