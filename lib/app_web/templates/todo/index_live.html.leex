@@ -5,6 +5,7 @@
     <tr>
       <th>Title</th>
       <th>Status</th>
+      <th>Priority</th>
       <th></th>
     </tr>
   </thead>
@@ -17,6 +18,11 @@
         <%= atom_to_human_str(todo.status) %>
         </div>
         <button phx-click="change_status" phx-value="<%= todo.id %>">Update Status</button>
+      </td>
+      <td><%= todo.priority %></td>
+
+      <td>
+        <a href="/todos/<%= todo.id %>/edit">edit</a>
       </td>
     </tr>
 <% end %>

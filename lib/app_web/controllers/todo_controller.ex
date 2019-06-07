@@ -5,8 +5,6 @@ defmodule AppWeb.TodoController do
   alias App.Ctx.Todo
 
   def index(conn, _params) do
-    # todos = Ctx.list_todos_by_priority()
-    # render(conn, "index.html", todos: todos)
     LiveView.Controller.live_render(conn, AppWeb.TodoLive, session: %{})
   end
 
@@ -18,6 +16,9 @@ defmodule AppWeb.TodoController do
   def create(conn, %{"todo" => todo_params}) do
     case Ctx.create_todo(todo_params) do
       {:ok, todo} ->
+        todos = App.Ctx.list_todos_by_priority()
+        AppWeb.Endpoint.broadcast_from(self(), "live", "update", %{todos: todos})
+        
         conn
         |> put_flash(:info, "Todo created successfully.")
         |> redirect(to: Routes.todo_path(conn, :show, todo))
@@ -43,6 +44,9 @@ defmodule AppWeb.TodoController do
 
     case Ctx.update_todo(todo, todo_params) do
       {:ok, todo} ->
+        todos = App.Ctx.list_todos_by_priority()
+        AppWeb.Endpoint.broadcast_from(self(), "live", "update", %{todos: todos})
+
         conn
         |> put_flash(:info, "Todo updated successfully.")
         |> redirect(to: Routes.todo_path(conn, :show, todo))

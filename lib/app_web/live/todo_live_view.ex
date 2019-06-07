@@ -4,11 +4,10 @@ defmodule AppWeb.TodoLive do
   @topic "live"
 
   def render(assigns) do
-    # IO.inspect(assigns, label: "assigns")
     AppWeb.TodoView.render("index_live.html", assigns)
   end
 
-  def mount(_session, socket) do
+  def mount(session, socket) do
     AppWeb.Endpoint.subscribe(@topic)
     todos = App.Ctx.list_todos_by_priority()
     {:ok, assign(socket, todos: todos)}
@@ -28,5 +27,4 @@ defmodule AppWeb.TodoLive do
     IO.inspect(msg, label: ">> msg")
     {:noreply, assign(socket, todos: msg.payload.todos)}
   end
-
 end
