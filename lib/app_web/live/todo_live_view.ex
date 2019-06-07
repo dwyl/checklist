@@ -1,12 +1,14 @@
-defmodule AppWeb.TodoLiveView do
+defmodule AppWeb.TodoLive do
   use Phoenix.LiveView
 
   def render(assigns) do
-    AppWeb.TodoView.render("github_deploy.html", assigns)
+    IO.inspect(assigns, label: "assigns")
+    AppWeb.TodoView.render("index_live.html", assigns)
   end
 
   def mount(_session, socket) do
-    {:ok, assign(socket, deploy_step: "Ready!")}
+    todos = App.Ctx.list_todos_by_priority()
+    {:ok, assign(socket, todos: todos)}
   end
 
   def handle_event("hello_rob", _value, socket) do

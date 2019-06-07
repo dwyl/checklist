@@ -5,9 +5,9 @@ defmodule AppWeb.TodoController do
   alias App.Ctx.Todo
 
   def index(conn, _params) do
-    todos = Ctx.list_todos_by_priority()
+    # todos = Ctx.list_todos_by_priority()
     # render(conn, "index.html", todos: todos)
-    LiveView.Controller.live_render(conn, AppWeb.TodoLiveView, session: %{})
+    LiveView.Controller.live_render(conn, AppWeb.TodoLive, session: %{})
   end
 
   def new(conn, _params) do
