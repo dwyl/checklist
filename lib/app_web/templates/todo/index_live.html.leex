@@ -14,12 +14,10 @@
     <tr>
       <td><%= todo.title %></td>
       <td>
-        <div class="<%= todo.status %>">
+        <div class="pa2 <%= todo.status %>">
         <%= atom_to_human_str(todo.status) %>
         </div>
-        <button phx-click="change_status" phx-value="<%= todo.id %>">
-         Update Status
-        </button>
+
       </td>
       <td><%= todo.priority %></td>
 
@@ -46,6 +44,7 @@
 
 
 <style>
+
 .complete {
   color: #fff;
   background-color: #337ab7;
@@ -56,6 +55,7 @@
 }
 
 .assigned {
+  color: white;
   background-color: green;
 }
 
