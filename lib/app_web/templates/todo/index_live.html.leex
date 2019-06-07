@@ -17,12 +17,27 @@
         <div class="<%= todo.status %>">
         <%= atom_to_human_str(todo.status) %>
         </div>
-        <button phx-click="change_status" phx-value="<%= todo.id %>">Update Status</button>
+        <button phx-click="change_status" phx-value="<%= todo.id %>">
+         Update Status
+        </button>
       </td>
       <td><%= todo.priority %></td>
 
       <td>
         <a href="/todos/<%= todo.id %>/edit">edit</a>
+
+        <!-- select status -->
+        <select phx_change="update_status">
+          <%= for status <- statusliststring() do %>
+            <option phx-value="<%= todo.id %>_<%= status %>"
+                    value="<%= status %>"
+                    <%= selected(todo.status, status) %>
+            >
+              <%= human_readble_status(status) %>
+            </option>
+          <% end %>
+        </select>
+
       </td>
     </tr>
 <% end %>
