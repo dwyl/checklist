@@ -25,7 +25,6 @@ defmodule App.Ctx.Todo do
   end
 
   def status_assigned(changeset, attrs) do
-    IO.inspect(attrs, label: "===========>")
     if(Map.has_key?(attrs, "assignee") && attrs["assignee"] && attrs["status"] == "unassigned") do
       put_change(changeset, :status, :assigned)
     else
