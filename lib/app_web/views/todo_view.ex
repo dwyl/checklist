@@ -7,14 +7,6 @@ defmodule AppWeb.TodoView do
     end)
   end
 
-  def statusliststring do
-    Enum.map(App.StatusList.statuslist, fn(atom) ->
-
-      atom
-      |> Atom.to_string()
-    end)
-  end
-
   def atom_to_human_str(atom) do
     atom
     |> Atom.to_string()
@@ -27,15 +19,17 @@ defmodule AppWeb.TodoView do
     |> String.capitalize
   end
 
-  def selected(todo_status, status) do
-    # IO.inspect(todo_status, label: "todo_status")
-    # IO.inspect(status, label: "status")
-
-    if Atom.to_string(todo_status) == status do
-      "selected"
-    else
-      ""
-    end
+  def id_status(todo, atom) do
+    "#{todo.id}-#{atom}"
   end
+
+  # used for setting the value of <option> in select on index page
+  # https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html#select/4
+  def statuslistselect(todo) do
+    Enum.map(App.StatusList.statuslist, fn(atom) ->
+      {atom_to_human_str(atom), id_status(todo, atom)}
+    end)
+  end
+
 
 end

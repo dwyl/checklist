@@ -1,3 +1,39 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.complete {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.unassigned {
+  background-color: white;
+}
+
+.assigned {
+  color: white;
+  background-color: green;
+}
+
+.in_progress {
+  color: white;
+  background-color: blue;
+}
+
+.awaiting_review {
+  background-color: yellow;
+}
+
+.in_review {
+  background-color: pink;
+}
+
+.dependent {
+  background-color: orange;
+}
+
+.blocked {
+  color: white;
+  background-color: red;
+}
