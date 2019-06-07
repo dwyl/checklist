@@ -21,11 +21,12 @@ defmodule App.Ctx.Todo do
     |> cast(attrs, [:title, :status, :priority, :time_estimate, :deadline,
       :schedule, :assignee, :owner])
     |> validate_required([])
-    |> status_assigned(todo)
+    |> status_assigned(attrs)
   end
 
-  def status_assigned(changeset, todo) do
-    if(todo.assignee && todo.status == :unassigned) do
+  def status_assigned(changeset, attrs) do
+    IO.inspect(attrs, label: "===========>")
+    if(Map.has_key?(attrs, "assignee") && attrs["assignee"] && attrs["status"] == "unassigned") do
       put_change(changeset, :status, :assigned)
     else
       changeset
