@@ -1,0 +1,48 @@
+<h1>Show Todo</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @todo.title %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @todo.status %>
+  </li>
+
+  <li>
+    <strong>Priority:</strong>
+    <%= @todo.priority %>
+  </li>
+
+  <li>
+    <strong>Time estimate:</strong>
+    <%= @todo.time_estimate %>
+  </li>
+
+  <li>
+    <strong>Deadline:</strong>
+    <%= @todo.deadline %>
+  </li>
+
+  <li>
+    <strong>Schedule:</strong>
+    <%= @todo.schedule %>
+  </li>
+
+  <li>
+    <strong>Assignee:</strong>
+    <%= @todo.assignee %>
+  </li>
+
+  <li>
+    <strong>Owner:</strong>
+    <%= @todo.owner %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.todo_path(@conn, :edit, @todo) %></span>
+<span><%= link "Back", to: Routes.todo_path(@conn, :index) %></span>

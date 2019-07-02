@@ -1,0 +1,32 @@
+<h1>Listing Todos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for todo <- @todos do %>
+  <tr>
+    <td><%= todo.title %></td>
+    
+    <td>
+      <%= form_for :"status_#{todo.id}", "#", [phx_change: "update_status"], fn f -> %>
+        <%= select f, :status, statuslist(), selected: todo.status, class: todo.status %>
+      <% end %>
+    </td>
+
+    <td><%= todo.priority %></td>
+
+    <td>
+      <a href="/todos/<%= todo.id %>/edit">edit</a>
+    </td>
+
+  </tr>
+<% end %>
+  </tbody>
+</table>
